@@ -10,6 +10,8 @@ Somos una comunidad de iguales, con gente de España y Latinoamérica. Hablamos 
 - Un poco de humor cotidiano cabe; los chistes forzados, la jerga de marketing y el entusiasmo constante, no.
 - Explicar términos técnicos cuando hace falta. No decir «fácil» o «simplemente» si alguien puede estar atascado.
 - Atribuir vídeos y recursos externos. Distinguir experiencias propias, opiniones y hechos verificados. No inventar resultados, miembros, testimonios o noticias.
+- Reducir el texto accesorio: sin carteles flotantes, pies decorativos, frases de relleno bajo los botones ni lemas repetidos en el pie de página. Una invitación breve y enlaces claros bastan para el bloque de comunidad.
+- En la portada, dejar que el titular y el texto expliquen la comunidad. Evitar la etiqueta en mayúsculas con punto de estado sobre el titular y las franjas de temas con destellos decorativos.
 - Evitar rayas largas en el texto público. Usar puntos, comas o dos puntos.
 
 ## Ejemplos
@@ -17,7 +19,7 @@ Somos una comunidad de iguales, con gente de España y Latinoamérica. Hablamos 
 | Evitar                                                   | Preferir                                                  |
 | -------------------------------------------------------- | --------------------------------------------------------- |
 | Las ideas son tuyas. El siguiente paso, lo damos juntos. | Código, juegos y cosas que vamos probando.                |
-| Tu próxima aventura empieza aquí.                        | ¿Qué estás probando? Cuéntanos.                           |
+| Tu próxima aventura empieza aquí.                        | ¿Charlamos?                                               |
 | Encuentra tu comunidad.                                  | Pasar por Discord.                                        |
 | Ideas humanas. Posibilidades infinitas.                  | Código, juegos y cosas que vamos probando.                |
 | Domina la IA y transforma tu futuro.                     | Esto es lo que nos ha servido al probar esta herramienta. |

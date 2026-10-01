@@ -1,15 +1,5 @@
 import React from "react";
-import {
-  ArrowUpRight,
-  ArrowRight,
-  Menu,
-  X,
-  Moon,
-  Sun,
-  Code2,
-  ChevronRight,
-  Rss,
-} from "lucide-react";
+import { ArrowUpRight, ArrowRight, Menu, X, Moon, Sun, ChevronRight, Rss } from "lucide-react";
 import { SocialIcon } from "./components/social-icon";
 import { YoutubeEmbed } from "./components/youtube-embed";
 import { posts } from "./generated/content";
@@ -103,25 +93,15 @@ function JoinCommunity() {
     <section className="community-panel container">
       <div className="community-art">
         <Illustration icon="04" />
-        <span className="tiny-star ">✦</span>
       </div>
       <div className="community-copy">
-        <span className="eyebrow">SI TE APETECE CHARLAR</span>
-        <h2>
-          ¿Qué estás probando?
-          <br />
-          Cuéntanos.
-        </h2>
-        <p>
-          Pásate a saludar, enseña algo que estés haciendo o pregunta eso que no termina de
-          funcionar.
-        </p>
+        <h2>¿Charlamos?</h2>
         <div className="button-row">
           <a className="button" href={site.discord} target="_blank" rel="noreferrer">
-            <SocialIcon kind="discord" /> Entrar a Discord <ArrowUpRight size={17} />
+            <SocialIcon kind="discord" /> Discord <ArrowUpRight size={17} />
           </a>
           <a className="text-link" href={site.reddit} target="_blank" rel="noreferrer">
-            Nos vemos en Reddit <ArrowUpRight size={17} />
+            <SocialIcon kind="reddit" /> Reddit <ArrowUpRight size={17} />
           </a>
         </div>
       </div>
@@ -138,7 +118,6 @@ function Footer() {
             ai-es<span className="brand-dot">.</span>
           </span>
         </a>
-        <p>Código, juegos y cosas que vamos probando.</p>
         <div className="footer-links">
           <a href={site.github}>
             <SocialIcon kind="github" /> GitHub <ArrowUpRight size={13} />
@@ -206,9 +185,6 @@ function Home() {
     <>
       <section className="hero container">
         <div className="hero-copy">
-          <span className="eyebrow">
-            <span className="status-dot" /> IA EN ESPAÑOL · ESPAÑA Y LATINOAMÉRICA
-          </span>
           <h1>
             Código, juegos
             <br />y cosas que
@@ -224,22 +200,11 @@ function Home() {
               <SocialIcon kind="discord" /> Pasar por Discord <ArrowUpRight size={18} />
             </a>
           </div>
-          <div className="hero-note">
-            <span className="note-icons">
-              <img src="/images/ai-es-03-64.png" alt="" />
-              <img src="/images/ai-es-05-64.png" alt="" />
-              <img src="/images/ai-es-06-64.png" alt="" />
-            </span>
-            <span>No hace falta saber mucho ni tener algo terminado.</span>
-          </div>
         </div>
         <div className="hero-art" aria-hidden="true">
           <div className="orbit " />
           <div className="orbit orbit-two" />
           <div className="dot-field" />
-          <span className="floating-label label-code">
-            <Code2 size={16} /> ideas en construcción
-          </span>
           <span className="hero-spark spark-one">✦</span>
           <span className="hero-spark spark-two">✧</span>
           <div className="sticker sticker-monitor">
@@ -251,30 +216,11 @@ function Home() {
           <div className="sticker sticker-game">
             <Illustration icon="05" />
           </div>
-          <span className="floating-label label-start">
-            pulsa start <span>↵</span>
-          </span>
-          <span className="art-caption">CÓDIGO, JUEGOS Y ALGÚN EXPERIMENTO.</span>
         </div>
       </section>
-      <div className="topics-strip">
-        <div className="container">
-          <span>DE ESTO HABLAMOS</span>
-          <a href="/temas/ia/">
-            Inteligencia artificial <span>✦</span>
-          </a>
-          <a href="/temas/desarrollo/">
-            Desarrollo de software <span>✦</span>
-          </a>
-          <a href="/temas/videojuegos/">
-            Videojuegos <span>✦</span>
-          </a>
-        </div>
-      </div>
       <section className="section container">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">LO QUE VAMOS PUBLICANDO</span>
             <h2>Notas, guías y alguna novedad.</h2>
           </div>
           <a className="text-link" href="/blog/">
@@ -294,10 +240,8 @@ function Home() {
       <section className="topic-section container">
         <div className="section-heading">
           <div>
-            <span className="eyebrow">CADA CUAL CON LO SUYO</span>
             <h2>¿En qué andas?</h2>
           </div>
-          <span className="section-note">Un poco de cada cosa también vale.</span>
         </div>
         <div className="topic-grid">
           {Object.entries(topics).map(([key, topic]) => (
