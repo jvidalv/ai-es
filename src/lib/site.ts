@@ -1,4 +1,4 @@
-import type { Post, Topic } from "./types";
+import type { Post, Topic } from "./types.ts";
 
 export const site = {
   name: "ai-es",

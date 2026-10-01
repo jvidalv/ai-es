@@ -26,6 +26,8 @@ function Illustration({ icon, className = "" }: { icon: Post["icon"]; className?
       width="256"
       height="256"
       alt=""
+      loading="lazy"
+      decoding="async"
     />
   );
 }
@@ -80,7 +82,7 @@ function Header({ path }: { path: string }) {
             target="_blank"
             rel="noreferrer"
           >
-            Únete a Discord <ArrowUpRight size={16} />
+            Pasar por Discord <ArrowUpRight size={16} />
           </a>
           <button
             className="icon-button menu-toggle"
@@ -150,7 +152,7 @@ function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        <span>© 2026 ai-es · Hecho para compartir.</span>
+        <span>© 2026 ai-es · España y Latinoamérica.</span>
         <span>IA · SOFTWARE · VIDEOJUEGOS</span>
       </div>
     </footer>
@@ -162,7 +164,7 @@ function PostCard({ post, featured = false }: { post: Post; featured?: boolean }
       className={`post-card ${post.topic}${featured ? " featured-card" : ""}`}
       href={postPath(post)}
     >
-      <div className="card-art">
+      <div className="card-art" aria-hidden="true">
         <div className="art-orbit" />
         <span className="art-star">✦</span>
         <Illustration icon={post.icon} />
@@ -252,7 +254,7 @@ function Home() {
           <span className="floating-label label-start">
             pulsa start <span>↵</span>
           </span>
-          <span className="art-caption">UN POCO DE CÓDIGO. MUCHA CURIOSIDAD.</span>
+          <span className="art-caption">CÓDIGO, JUEGOS Y ALGÚN EXPERIMENTO.</span>
         </div>
       </section>
       <div className="topics-strip">
@@ -322,7 +324,7 @@ function Listing({ topic }: { topic?: Topic }) {
   const title = topicInfo?.name ?? "Lo que vamos aprendiendo.";
   const description =
     topicInfo?.description ??
-    "Apuntes sobre IA, código y juegos. Cosas que hemos probado, dudas que hemos resuelto y alguna novedad.";
+    "Apuntes sobre IA, código y juegos. Guías para empezar, pruebas y alguna novedad.";
   const matching = posts.filter(
     (post) => (!topic || post.topic === topic) && (filter === "todos" || post.topic === filter),
   );
@@ -338,7 +340,7 @@ function Listing({ topic }: { topic?: Topic }) {
       </section>
       <section className="container">
         {!topic && (
-          <div className="filters" aria-label="Filtrar por tema">
+          <div className="filters" role="group" aria-label="Filtrar por tema">
             {[
               ["todos", "Todo"],
               ["ia", "Inteligencia artificial"],

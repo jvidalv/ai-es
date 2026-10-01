@@ -22,7 +22,7 @@ describe("public content boundary", () => {
     const post = await parsePost({
       source: source(
         "",
-        '<script>alert(1)</script><img src="/image.png" onerror="alert(1)"><a href="javascript:alert(1)">link</a>',
+        '<script>alert(1)</script><img src="/image.png" alt="Una imagen" onerror="alert(1)"><a href="javascript:alert(1)">link</a>',
       ),
       slug: "seguro",
     });
@@ -52,5 +52,48 @@ describe("public content boundary", () => {
     expect(youtubeId("javascript:alert(1)")).toBeNull();
     expect(youtubeId("https://youtu.be/invalid")).toBeNull();
     expect(youtubeId("https://www.youtube.com/watch?v=tK2ACXUGcrY&t=30")).toBe("tK2ACXUGcrY");
+  });
+});
+
+describe("authoring mistakes", () => {
+  it("rejects misspelled draft flags and executable front matter", async () => {
+    await expect(
+      parsePost({ source: source("drafts: true\n"), slug: "draft-typo" }),
+    ).rejects.toThrow();
+    await expect(
+      parsePost({ source: "---js\n({title:'Executable'})\n---\nBody", slug: "executable" }),
+    ).rejects.toThrow("Only YAML");
+  });
+  it("requires descriptive alt text and secure image sources", async () => {
+    for (const body of [
+      "![](/image.png)",
+      "![Image](http://example.com/image.png)",
+      "![Image](//example.com/image.png)",
+    ]) {
+      await expect(
+        parsePost({ source: source("", body), slug: "invalid-image" }),
+      ).rejects.toThrow();
+    }
+  });
+  it("rejects misplaced embeds instead of silently publishing the directive", async () => {
+    for (const body of [
+      "> ::youtube[Talk](https://youtu.be/tK2ACXUGcrY)",
+      "::youtube[Talk](https://youtu.be/tK2ACXUGcrY) more text",
+    ]) {
+      await expect(
+        parsePost({ source: source("", body), slug: "invalid-embed" }),
+      ).rejects.toThrow();
+    }
+  });
+  it("keeps reference links working across video blocks", async () => {
+    const post = await parsePost({
+      source: source(
+        "",
+        "[Docs][ref]\n\n::youtube[Talk](https://youtu.be/tK2ACXUGcrY)\n\n[ref]: https://example.com/docs\n",
+      ),
+      slug: "references",
+    });
+    expect(JSON.stringify(post?.blocks)).toContain("https://example.com/docs");
+    expect(post?.markdown).toContain("[ref]: https://example.com/docs");
   });
 });

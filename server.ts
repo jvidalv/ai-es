@@ -63,11 +63,6 @@ const server = createServer(async (request, response) => {
       file = resolve(file, "index.html");
     }
     const body = await readFile(file);
-    if (extname(file) === ".md")
-      response.setHeader(
-        "Link",
-        `<https://ai-es.dev${pathname.replace(/index\.md$/, "")}>; rel="canonical", </llms.txt>; rel="describedby"`,
-      );
     response.writeHead(200, {
       "Content-Type": mime[extname(file)] ?? "application/octet-stream",
       "Cache-Control": pathname.startsWith("/assets/")

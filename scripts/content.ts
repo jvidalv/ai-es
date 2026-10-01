@@ -1,6 +1,6 @@
 import { readdir, readFile, mkdir, writeFile } from "node:fs/promises";
 import matter from "gray-matter";
-import { marked } from "marked";
+import { marked, type Token } from "marked";
 import sanitizeHtml from "sanitize-html";
 import { postMetadata } from "../src/lib/content-schema.ts";
 import { youtubeId } from "../src/lib/youtube.ts";
@@ -16,6 +16,9 @@ export async function parsePost({
   today?: string;
 }) {
   if (!/^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(slug)) throw new Error(`Invalid slug: ${slug}`);
+  if (!/^---(?:yaml|yml)?[ \t]*\r?\n/.test(source)) {
+    throw new Error(`Only YAML front matter is supported: ${slug}`);
+  }
   const { data, content } = matter(source);
   const parsed = postMetadata.parse(data);
   if (parsed.draft || parsed.date > today) return null;
@@ -26,18 +29,33 @@ export async function parsePost({
       allowedTags: [...sanitizeHtml.defaults.allowedTags, "img"],
       allowedAttributes: {
         ...sanitizeHtml.defaults.allowedAttributes,
-        img: ["src", "alt", "width", "height", "loading"],
+        img: ["src", "alt", "width", "height", "loading", "decoding"],
       },
       allowedSchemes: ["https", "http", "mailto"],
+      allowProtocolRelative: false,
+      transformTags: {
+        img: (tagName, attributes) => {
+          if (!attributes.alt?.trim()) throw new Error(`Image needs alt text in ${slug}`);
+          if (!attributes.src || !/^(?:https:\/\/|\/(?!\/))/.test(attributes.src)) {
+            throw new Error(`Image must use HTTPS or a root-relative path in ${slug}`);
+          }
+          return { tagName, attribs: { ...attributes, loading: "lazy", decoding: "async" } };
+        },
+      },
     });
   const blocks: ContentBlock[] = [];
-  let chunk = "";
+  const tokens = marked.lexer(content);
+  let chunk: Token[] = [];
   let markdown = "";
   const flush = async () => {
-    if (chunk.trim()) blocks.push({ type: "html", html: sanitize(await marked.parse(chunk)) });
-    chunk = "";
+    if (chunk.length)
+      blocks.push({
+        type: "html",
+        html: sanitize(await marked.parser(Object.assign(chunk, { links: tokens.links }))),
+      });
+    chunk = [];
   };
-  for (const token of marked.lexer(content)) {
+  for (const token of tokens) {
     const match =
       token.type === "paragraph"
         ? /^::youtube\[([^\]\n]+)\]\(([^\s)]+)\)\s*$/.exec(token.raw)
@@ -49,7 +67,12 @@ export async function parsePost({
       blocks.push({ type: "youtube", id, title: match[1] });
       markdown += `[Vídeo: ${match[1]}](https://www.youtube.com/watch?v=${id})\n\n`;
     } else {
-      chunk += token.raw;
+      void marked.walkTokens([token], (nested) => {
+        if (nested.type === "text" && nested.text.includes("::youtube")) {
+          throw new Error(`YouTube embeds need their own paragraph in ${slug}`);
+        }
+      });
+      chunk.push(token);
       markdown += token.raw;
     }
   }

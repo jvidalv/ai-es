@@ -47,7 +47,10 @@ for (const page of [
         headline: post.title,
         description: post.description,
         datePublished: `${post.date}T12:00:00Z`,
-        author: { "@type": "Organization", name: post.author, url: site.origin },
+        author:
+          post.author === site.name
+            ? { "@type": "Organization", name: post.author, url: site.origin }
+            : { "@type": "Person", name: post.author },
         publisher: { "@type": "Organization", name: site.name, url: site.origin },
         mainEntityOfPage: url,
         inLanguage: "es",
@@ -106,11 +109,11 @@ for (const page of [
     <meta name="twitter:description" content="${escape(page.description)}" />
     <script type="application/ld+json">${JSON.stringify([structured, breadcrumb]).replace(/</g, "\\u003c")}</script>`;
   const html = template
-    .replace(/<title>.*?<\/title>/, `<title>${escape(page.title)}</title>`)
-    .replace("<!--seo-->", seo)
+    .replace(/<title>.*?<\/title>/, () => `<title>${escape(page.title)}</title>`)
+    .replace("<!--seo-->", () => seo)
     .replace(
       '<div id="root"></div>',
-      `<div id="root">${renderToString(createElement(App, { path: page.path }))}</div>`,
+      () => `<div id="root">${renderToString(createElement(App, { path: page.path }))}</div>`,
     );
   const file = page.path === "/404.html" ? "dist/404.html" : join("dist", page.path, "index.html");
   await mkdir(dirname(file), { recursive: true });
@@ -122,7 +125,7 @@ for (const page of [
     const content = post
       ? post.markdown
       : `${page.description}\n\n## Comunidad\n\n- [Discord](${site.discord})\n- [Reddit](${site.reddit})\n\n## Publicaciones\n\n${selectedPosts.map((entry) => `- [${entry.title}](${site.origin}${postPath(entry)}index.md): ${entry.description}`).join("\n")}`;
-    const markdown = `# ${post?.title ?? page.title}\n\nFuente: ${url}\nIdioma: español\n${post ? `Autor: ${post.author}\nPublicado: ${post.date}\n` : ""}\n${content.replace(/\]\(\/(?!\/)/g, `](${site.origin}/`)}\n`;
+    const markdown = `# ${post?.title ?? page.title}\n\nFuente: ${url}\nIdioma: español\n${post ? `Autor: ${post.author}\nPublicado: ${post.date}\n` : ""}\n${content}\n`;
     await writeFile(join(dirname(file), "index.md"), markdown);
     markdownPages.push({
       path: page.path,

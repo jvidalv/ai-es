@@ -1,6 +1,6 @@
 ---
 title: "Hola, somos ai-es. Estamos empezando."
-description: "Abrimos un espacio en español para quienes crean con IA. Software, videojuegos y muchas ganas de aprender haciendo."
+description: "Abrimos un sitio para hablar de IA, código y juegos en español. Para compartir pruebas, dudas y proyectos a medio hacer."
 date: "2026-10-01"
 kind: noticia
 topic: ia
@@ -10,17 +10,17 @@ featured: true
 
 Hemos abierto ai-es para tener un sitio donde hablar de IA, código y juegos en español. Compartir una prueba, preguntar por un error o enseñar algo a medio hacer. **No hace falta traer un gran proyecto.**
 
-Somos un punto de encuentro para la comunidad hispanohablante de España y Latinoamérica: personas que exploran la inteligencia artificial en el desarrollo de software y videojuegos. Puedes estar dando tus primeros pasos o llevar años programando: la curiosidad es un buen lugar desde el que empezar.
+Queremos reunir a gente de España y Latinoamérica que use la IA para programar o hacer juegos. Puedes estar empezando o llevar años con esto.
 
-![ai-es: inteligencia artificial, software y videojuegos](/images/ai-es-banner-mobile-2160x512.png)
+<img src="/images/ai-es-banner-mobile-2160x512.png" alt="ai-es: inteligencia artificial, software y videojuegos" width="2160" height="512" />
 
 ## Qué podemos compartir
 
 Aquí tienen sitio los experimentos, las dudas concretas y lo que has aprendido por el camino. Queremos hablar de código, diseño, herramientas y decisiones reales: qué probaste, qué funcionó y qué harías diferente.
 
-- **Aprender haciendo.** Comparte lo que descubres, incluso cuando el resultado no es el que esperabas.
-- **Crear en compañía.** Enseña tu proyecto, pide una segunda opinión o encuentra a alguien con quien colaborar.
-- **Usar la IA con criterio.** Contrasta sus respuestas, revisa el código y explica qué parte de tu proceso ha cambiado.
+- Comparte lo que descubres, incluso cuando el resultado no es el que esperabas.
+- Enseña tu proyecto, pide una segunda opinión o encuentra a alguien con quien colaborar.
+- Contrasta sus respuestas, revisa el código y explica qué parte de tu proceso ha cambiado.
 
 ## Dónde estamos
 

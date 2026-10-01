@@ -28,7 +28,7 @@ for (const file of repoFiles().filter(
       findings.push(`${file}:${line}: type escape`);
     if (ts.isExportDeclaration(node) && node.moduleSpecifier)
       findings.push(`${file}:${line}: re-export`);
-    if (ts.isFunctionDeclaration(node) && node.parameters.length > 2)
+    if (ts.isFunctionLike(node) && node.parameters.length > 2)
       findings.push(`${file}:${line}: use a typed options object for 3+ parameters`);
     ts.forEachChild(node, visit);
   }

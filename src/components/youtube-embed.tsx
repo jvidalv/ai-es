@@ -8,6 +8,8 @@ export function YoutubeEmbed({ id, title }: { id: string; title: string }) {
       <div className="youtube-player">
         {playing ? (
           <iframe
+            ref={(element) => element?.focus()}
+            tabIndex={0}
             src={`https://www.youtube-nocookie.com/embed/${id}?autoplay=1`}
             title={title}
             allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture; fullscreen"

@@ -1,5 +1,5 @@
 import type { z } from "zod";
-import type { postMetadata, topicSchema } from "./content-schema";
+import type { postMetadata, topicSchema } from "./content-schema.ts";
 
 export type Topic = z.infer<typeof topicSchema>;
 export type Post = Omit<z.infer<typeof postMetadata>, "draft"> & {

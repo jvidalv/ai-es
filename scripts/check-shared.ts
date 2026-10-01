@@ -22,6 +22,7 @@ export function changedFiles({ match = /\.(ts|tsx)$/ }: { match?: RegExp } = {})
   const commands = [
     ["diff", "--name-only", "--diff-filter=d", "-z", "HEAD"],
     ["ls-files", "--others", "--exclude-standard", "-z"],
+    ["diff", "--cached", "--name-only", "--diff-filter=d", "-z"],
   ];
   try {
     const base = execFileSync("git", ["merge-base", "HEAD", "origin/main"], {

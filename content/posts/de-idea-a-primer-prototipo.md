@@ -27,6 +27,6 @@ Prueba el camino feliz y al menos un caso incómodo: un enlace vacío, una respu
 
 ## Comparte una demo con una pregunta
 
-«¿Se entiende cómo guardar un enlace?» invita a una respuesta más útil que «¿Qué os parece?». Publica una captura, explica el objetivo y cuenta qué parte quieres mejorar.
+«¿Se entiende cómo guardar un enlace?» invita a una respuesta más útil que «¿Qué les parece?». Publica una captura, explica el objetivo y cuenta qué parte quieres mejorar.
 
 Puedes compartir tu prototipo en [la comunidad de Reddit](https://www.reddit.com/r/ai_es/) o conversar sobre él en [Discord](https://discord.gg/U9F4b9avV5).

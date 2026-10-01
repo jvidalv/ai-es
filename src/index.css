@@ -8,7 +8,7 @@
   --bg: #f7f6ef;
   --paper: #fffef9;
   --ink: #272923;
-  --muted: #656b61;
+  --muted: #5c6359;
   --line: #d8dcd1;
   --teal: #306e63;
   --mint: #e4ece0;
@@ -416,7 +416,7 @@ button:focus-visible {
   position: absolute;
   bottom: -11px;
   left: 92px;
-  font-size: 8px;
+  font-size: 10px;
   font-weight: 600;
   color: var(--muted);
   letter-spacing: 2px;
@@ -553,7 +553,7 @@ button:focus-visible {
   color: var(--muted);
 }
 .tag {
-  font-size: 8px;
+  font-size: 10px;
   letter-spacing: 0.7px;
   font-weight: 700;
   display: inline-flex;
@@ -707,7 +707,7 @@ button:focus-visible {
 }
 .footer-bottom span:last-child {
   letter-spacing: 1.3px;
-  font-size: 8px;
+  font-size: 10px;
 }
 .skip-link {
   position: fixed;
@@ -1117,7 +1117,7 @@ button:focus-visible {
     gap: 22px;
   }
   .hero-copy > .eyebrow {
-    font-size: 8px;
+    font-size: 10px;
     letter-spacing: 1.1px;
   }
   .hero h1 {
@@ -1170,7 +1170,7 @@ button:focus-visible {
     right: 10px;
   }
   .floating-label {
-    font-size: 8px;
+    font-size: 10px;
     padding: 7px;
   }
   .label-code {
@@ -1195,7 +1195,7 @@ button:focus-visible {
   .art-caption {
     left: 47px;
     bottom: -5px;
-    font-size: 7px;
+    font-size: 10px;
     letter-spacing: 1.4px;
   }
   .topics-strip > .container {
@@ -1230,7 +1230,7 @@ button:focus-visible {
     gap: 5px;
   }
   .section-heading .eyebrow {
-    font-size: 8px;
+    font-size: 10px;
     letter-spacing: 1.3px;
   }
   .home-post-grid,
@@ -1301,7 +1301,7 @@ button:focus-visible {
     font-size: 24px;
   }
   .community-copy > .eyebrow {
-    font-size: 8px;
+    font-size: 10px;
     letter-spacing: 1.3px;
   }
   .community-copy h2 {
@@ -1341,7 +1341,7 @@ button:focus-visible {
     line-height: 1.6;
   }
   .footer-bottom span:last-child {
-    font-size: 7px;
+    font-size: 10px;
   }
   .page-intro {
     padding-top: 38px;
@@ -1584,4 +1584,17 @@ body {
 .button .social-icon {
   width: 23px;
   height: 23px;
+}
+
+.prose {
+  overflow-wrap: anywhere;
+}
+:root[data-theme="dark"] .social-icon {
+  background: #f7f6ef;
+  border-radius: 50%;
+  padding: 2px;
+}
+.breadcrumb,
+.footer-links a {
+  min-height: 32px;
 }

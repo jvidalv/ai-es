@@ -68,7 +68,8 @@ También hay listas, enlaces, citas y bloques de código.
 - `icon`: `03` robot, `04` comunidad, `05` mando, `06` bombilla, `07` cohete, `08` ordenador.
 - `featured: true` destaca un artículo en el inicio.
 - `draft: true` excluye la publicación de **todos** los resultados públicos, incluidas las versiones para LLMs.
-- Una fecha futura también la excluye. Para publicarla hay que ejecutar un nuevo build a partir de esa fecha; no existe un programador automático.
+- Las fechas se escriben entre comillas en formato YYYY-MM-DD y se comparan con el día UTC. Una fecha futura también la excluye. Para publicarla hay que ejecutar un nuevo build a partir de esa fecha; no existe un programador automático.
+- Los borradores también deben tener metadatos completos y válidos. Solo se admite front matter YAML; un campo desconocido bloquea el build para evitar publicar por una errata.
 - Cambiar `draft` a `false` o eliminarlo y hacer merge a `main` publica la entrada cuando Railway termina el despliegue.
 - El título, la descripción, la fecha y los vídeos incrustados se validan. Un error bloquea el build.
 
@@ -104,9 +105,9 @@ El build genera desde las mismas publicaciones visibles:
 - `/feed.xml`, para lectores RSS.
 - `/llms.txt`, índice breve en Markdown.
 - `/llms-full.txt`, copia completa del contenido público.
-- `index.md` junto a cada página, con su fuente canónica y enlaces absolutos. El HTML anuncia esta alternativa con `rel="alternate"` y `type="text/markdown"`.
+- `index.md` junto a cada página, con su fuente canónica. Los enlaces del artículo conservan sus rutas originales, relativas a `https://ai-es.dev`. El HTML anuncia esta alternativa con `rel="alternate"` y `type="text/markdown"`.
 
-No se bloquean rastreadores en robots.txt. `llms.txt` es una convención complementaria, no una garantía de indexación o aparición en respuestas. No se inventan fechas de actualización ni valoraciones para obtener resultados enriquecidos. Mantener las URLs al editar títulos; si se cambia un slug, añadir una redirección permanente.
+No se bloquean rastreadores en robots.txt. `llms.txt` es una convención complementaria, no una garantía de indexación o aparición en respuestas. No se inventan fechas de actualización ni valoraciones para obtener resultados enriquecidos. Mantener el nombre del archivo al editar títulos para conservar la URL. Cambiar un slug requiere implementar una redirección en el servidor.
 
 Después de conectar el dominio, verificarlo en Google Search Console y Bing Webmaster Tools y enviar `https://ai-es.dev/sitemap.xml`. Esto necesita acceso a las cuentas del propietario. Revisar el tráfico real antes de añadir analítica; actualmente no se instala seguimiento.
 
@@ -114,15 +115,15 @@ Después de conectar el dominio, verificarlo en Google Search Console y Bing Web
 
 Railway construye el Dockerfile y ejecuta `node server.ts`. La imagen final solo contiene el servidor y la salida estática, corre como usuario sin privilegios y escucha en `0.0.0.0:$PORT`. El health check es `/`.
 
-En Railway, conectar el servicio `web` al repositorio `jvidalv/ai-es`, rama `main`. La conexión de GitHub permite desplegar cambios de contenido automáticamente. Si Railway no tiene acceso al nuevo repositorio, autorizarlo en la instalación de su GitHub App y conectarlo desde Settings → Source.
+El proyecto Railway `ai-es.dev` tiene el servicio `web` conectado al repositorio `jvidalv/ai-es`, rama `main`. Cada push a `main`, incluidos los cambios de artículos desde GitHub, inicia un despliegue automáticamente. Las pull requests ejecutan las comprobaciones de GitHub Actions.
 
-Dominio: `ai-es.dev`. En Cloudflare, crear un CNAME `@` hacia el destino que muestra Railway; inicialmente usar DNS only para validar el certificado. No borrar registros de correo ni otros subdominios. La cuenta de Railway debe tener el dominio asociado al puerto 3000.
+Dominio: `ai-es.dev`. En Cloudflare, crear un CNAME `@` hacia el destino que muestra Railway; inicialmente usar DNS only para validar el certificado. No borrar registros de correo ni otros subdominios. El servicio usa `PORT=3000` y el dominio está asociado a ese mismo puerto.
 
 ## Reglas y comprobaciones
 
 Ver [AGENTS.md](AGENTS.md). Se adaptaron de Berrus los gates de comentarios, configuración Vite, archivos modificados, commit y push. El gate de reglas valida nombres, imports, re-exports y escapes de tipos con el AST de TypeScript. Los hooks no reescriben archivos ni añaden cambios al índice.
 
-`vp check` agrupa formato, lint y tipos. `vp test run` prueba la frontera de publicación, la limpieza de HTML y los vídeos. `vp run verify:build` comprueba HTML, metadatos y enlaces de la salida generada. GitHub Actions ejecuta gates, build y verificación en cada PR/push a main.
+`vp run check` genera el contenido y agrupa formato, lint y tipos. `vp test run` prueba la frontera de publicación, la limpieza de HTML y los vídeos. `vp run verify:build` comprueba HTML, metadatos y enlaces de la salida generada. GitHub Actions ejecuta gates, build y verificación en cada PR/push a main.
 
 El estilo de los iconos sociales se dibuja con Canvas 2D en `src/lib/social-art.ts`, siguiendo la paleta y las formas de Berrus. Los PNG facilitados por el propietario conservan su formato original. El movimiento respeta `prefers-reduced-motion`.
 

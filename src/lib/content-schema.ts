@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const topicSchema = z.enum(["ia", "desarrollo", "videojuegos"]);
-export const postMetadata = z.object({
+export const postMetadata = z.strictObject({
   title: z.string().min(1).max(120),
   description: z.string().min(1).max(220),
   date: z.iso.date(),
