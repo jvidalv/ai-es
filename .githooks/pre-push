@@ -1,0 +1,4 @@
+#!/bin/sh
+set -e
+npm run check:push-gates
+npm run build

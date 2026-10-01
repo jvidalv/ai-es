@@ -1,0 +1,9 @@
+node_modules
+dist
+.git
+.gen-reports
+.claude
+.agents
+.env*
+test-results
+playwright-report

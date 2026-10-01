@@ -1,0 +1,53 @@
+{
+  "name": "ai-es",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vp dev --host 127.0.0.1",
+    "build": "node --import tsx scripts/generate-content.ts && tsc -b && vp build && vp build --ssr scripts/prerender.tsx --outDir .gen-reports/prerender && node .gen-reports/prerender/prerender.js && node --import tsx scripts/verify-build.ts",
+    "check": "node --import tsx scripts/generate-content.ts && vp check",
+    "test": "vp test run",
+    "preview": "vp preview --host 127.0.0.1",
+    "start": "node server.ts",
+    "content": "node --import tsx scripts/generate-content.ts",
+    "typecheck": "node --import tsx scripts/generate-content.ts && tsc -b",
+    "check:rules": "node --import tsx scripts/check-rules.ts",
+    "check:comment-length": "node --import tsx scripts/check-comment-length.ts",
+    "check:comment-density": "node --import tsx scripts/check-comment-density.ts",
+    "check:vite-config": "node --import tsx scripts/check-vite-config.ts",
+    "check:staged": "node --import tsx scripts/check-staged.ts",
+    "check:push-gates": "node --import tsx scripts/run-push-gates.ts",
+    "hooks:install": "git config core.hooksPath .githooks",
+    "verify:build": "node --import tsx scripts/verify-build.ts"
+  },
+  "dependencies": {
+    "@fontsource/dm-sans": "^5.2.0",
+    "@fontsource/space-grotesk": "^5.2.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@types/sanitize-html": "^2.16.0",
+    "@vitejs/plugin-react": "^6.1.1",
+    "gray-matter": "^4.0.3",
+    "marked": "^17.0.0",
+    "sanitize-html": "^2.17.0",
+    "tsx": "^4.20.0",
+    "typescript": "~6.0.2",
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.0.0",
+    "vite-plus": "1.0.0",
+    "zod": "^4.0.0"
+  },
+  "overrides": {
+    "vite": "$vite"
+  },
+  "engines": {
+    "node": ">=24 <25"
+  },
+  "packageManager": "npm@11.6.2"
+}

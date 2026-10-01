@@ -1,0 +1,15 @@
+import { createRoot, hydrateRoot } from "react-dom/client";
+import { App } from "./app";
+import "@fontsource/dm-sans/latin-400.css";
+import "@fontsource/dm-sans/latin-500.css";
+import "@fontsource/dm-sans/latin-600.css";
+import "@fontsource/dm-sans/latin-700.css";
+import "@fontsource/space-grotesk/latin-500.css";
+import "@fontsource/space-grotesk/latin-600.css";
+import "@fontsource/space-grotesk/latin-700.css";
+import "./index.css";
+const root = document.getElementById("root");
+if (!root) throw new Error("Missing application root");
+const app = <App path={window.location.pathname} />;
+if (root.hasChildNodes()) hydrateRoot(root, app);
+else createRoot(root).render(app);

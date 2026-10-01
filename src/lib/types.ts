@@ -1,0 +1,14 @@
+import type { z } from "zod";
+import type { postMetadata, topicSchema } from "./content-schema";
+
+export type Topic = z.infer<typeof topicSchema>;
+export type Post = Omit<z.infer<typeof postMetadata>, "draft"> & {
+  slug: string;
+  blocks: ContentBlock[];
+  markdown: string;
+  minutes: number;
+};
+
+export type ContentBlock =
+  | { type: "html"; html: string }
+  | { type: "youtube"; id: string; title: string };
