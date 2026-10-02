@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="public/images/ai-es-banner-desktop-3200x384.png" alt="ai-es · IA, software y videojuegos" width="100%" />
+  <img src="apps/web/public/images/ai-es-banner-desktop-3200x384.png" alt="ai-es · IA y desarrollo de software y videojuegos" width="100%" />
 </p>
 
 <h1 align="center">ai-es</h1>
-<p align="center"><strong>Código, juegos y cosas que vamos probando.</strong></p>
+<p align="center"><strong>IA y desarrollo de software y videojuegos.</strong></p>
 <p align="center">
   <a href="https://ai-es.dev">La web</a> ·
   <a href="https://discord.gg/U9F4b9avV5">Discord</a> ·
@@ -14,7 +14,7 @@
   <a href="https://github.com/jvidalv/ai-es/actions/workflows/ci.yml"><img src="https://github.com/jvidalv/ai-es/actions/workflows/ci.yml/badge.svg" alt="Quality gates" /></a>
 </p>
 
-Comunidad en español para hablar de IA, desarrollo de software y videojuegos. Gente de España y Latinoamérica compartiendo lo que va probando.
+Comunidad en español interesada en la IA y el desarrollo de software y videojuegos. Para compartir pruebas, dudas y recursos.
 
 - Web: https://ai-es.dev
 - Discord: https://discord.gg/U9F4b9avV5
@@ -22,27 +22,33 @@ Comunidad en español para hablar de IA, desarrollo de software y videojuegos. G
 
 ## Desarrollo
 
-Node 24, React, TypeScript estricto y Vite+ 1.0. El gestor del proyecto es npm, gestionado por Vite+.
+Bun 1.4.2 gestiona los workspaces, las dependencias y el servidor de producción. Node 24 ejecuta las herramientas de Vite+ 1.0. React y TypeScript estricto.
+
+- `apps/web`: web, servidor, imágenes y generación de HTML y metadatos.
+- `packages/content`: publicaciones Markdown, validación, tipos y lector de contenido. La web lo usa como `@ai-es/content` mediante `workspace:*`.
+- `scripts`: comprobaciones del repositorio. Un solo `bun.lock` fija las dependencias.
+
+Ejecutar los comandos desde la raíz:
 
 ```sh
-vp install
-vp run hooks:install
-vp dev
+bun install --frozen-lockfile
+bun run hooks:install
+bun run dev
 ```
 
-La web se abre en `http://localhost:5173`. Los cambios en `content/posts/` se regeneran durante el desarrollo. No editar `src/generated/`.
+La web se abre en `http://localhost:5173`. Los cambios en `packages/content/posts/` se regeneran durante el desarrollo. No editar `apps/web/src/generated/`.
 
 ```sh
-vp run check:push-gates
-vp run build
-vp run start
+bun run check:push-gates
+bun run build
+bun run start
 ```
 
-Usar **`vp run build`**, no solo `vp build`: el script completo valida tipos, compila el cliente y genera HTML, Markdown, sitemap y feeds. Producción sirve `dist/` en el puerto `PORT` (3000 por defecto). No requiere base de datos, secretos ni CMS.
+Usar **`bun run build`**, no solo `vp build`: el script completo valida tipos, compila el cliente y genera HTML, Markdown, sitemap y feeds. Producción sirve `apps/web/dist/` en el puerto `PORT` (3000 por defecto). No requiere base de datos, secretos ni CMS.
 
 ## Publicar un artículo o una noticia
 
-Crear un archivo en `content/posts/mi-articulo.md`. El nombre en kebab-case será la URL. Puede hacerse directamente desde GitHub. Leer antes [la guía de escritura](docs/writing-style.md): conversación entre iguales, español cercano y sin tono comercial.
+Crear un archivo en `packages/content/posts/mi-articulo.md`. El nombre en kebab-case será la URL. Puede hacerse directamente desde GitHub. Leer antes [la guía de escritura](docs/writing-style.md): conversación entre iguales, español cercano y sin tono comercial.
 
 ```md
 ---
@@ -75,13 +81,13 @@ También hay listas, enlaces, citas y bloques de código.
 
 ## Imágenes
 
-Subir las imágenes a `public/images/posts/` y referenciarlas con una ruta que empiece por `/images/`. Escribir siempre un texto alternativo que describa la información de la imagen.
+Subir las imágenes a `apps/web/public/images/posts/` y referenciarlas con una ruta que empiece por `/images/`. Escribir siempre un texto alternativo que describa la información de la imagen.
 
 ```md
 ![El personaje esquivando los obstáculos del prototipo](/images/posts/mi-juego.webp)
 ```
 
-También se admiten imágenes HTTPS externas. Preferir archivos propios optimizados en WebP/AVIF para evitar depender de otros servidores. No subir capturas con datos privados. Las ilustraciones originales de ai-es están en `public/images/`.
+También se admiten imágenes HTTPS externas. Preferir archivos propios optimizados en WebP/AVIF para evitar depender de otros servidores. No subir capturas con datos privados. Las ilustraciones originales de ai-es están en `apps/web/public/images/`.
 
 ## YouTube dentro de cualquier publicación
 
@@ -97,7 +103,7 @@ Los vídeos van dentro de los artículos; no hay una sección de vídeos indepen
 
 ## SEO y acceso desde LLMs
 
-Todas las rutas tienen HTML completo antes de ejecutar JavaScript. Cada página tiene título, descripción, URL canónica, metadatos Open Graph y datos estructurados. Los artículos incluyen fecha, autor y su ilustración. Hay páginas por tema y enlaces internos. Las rutas inexistentes devuelven **HTTP 404**, no una SPA con estado 200.
+Todas las rutas tienen HTML completo antes de ejecutar JavaScript. Cada página tiene título, descripción, URL canónica, metadatos Open Graph y datos estructurados. Los artículos incluyen fecha, autor y su ilustración. La imagen social general se genera en cada build desde `site.headline` y las ilustraciones originales; los metadatos de las páginas usan esa imagen. Hay páginas por tema y enlaces internos. Las rutas inexistentes devuelven **HTTP 404**, no una SPA con estado 200.
 
 El build genera desde las mismas publicaciones visibles:
 
@@ -113,7 +119,9 @@ Después de conectar el dominio, verificarlo en Google Search Console y Bing Web
 
 ## Railway y Cloudflare
 
-Railway construye el Dockerfile y ejecuta `node server.ts`. La imagen final solo contiene el servidor y la salida estática, corre como usuario sin privilegios y escucha en `0.0.0.0:$PORT`. El health check es `/`.
+Railway construye el Dockerfile y ejecuta `bun server.ts`. La imagen final solo contiene el servidor y la salida estática, corre como usuario sin privilegios y escucha en `0.0.0.0:$PORT`. El health check es `/`.
+
+Mantener el directorio raíz de Railway en la raíz del repositorio: el Dockerfile necesita ambos workspaces y el lockfile. No establecer `apps/web` como raíz del servicio.
 
 El proyecto Railway `ai-es.dev` tiene el servicio `web` conectado al repositorio `jvidalv/ai-es`, rama `main`. Cada push a `main`, incluidos los cambios de artículos desde GitHub, inicia un despliegue automáticamente. Las pull requests ejecutan las comprobaciones de GitHub Actions.
 
@@ -123,8 +131,8 @@ Dominio: `ai-es.dev`. En Cloudflare, crear un CNAME `@` hacia el destino que mue
 
 Ver [AGENTS.md](AGENTS.md). Se adaptaron de Berrus los gates de comentarios, configuración Vite, archivos modificados, commit y push. El gate de reglas valida nombres, imports, re-exports y escapes de tipos con el AST de TypeScript. Los hooks no reescriben archivos ni añaden cambios al índice.
 
-`vp run check` genera el contenido y agrupa formato, lint y tipos. `vp test run` prueba la frontera de publicación, la limpieza de HTML y los vídeos. `vp run verify:build` comprueba HTML, metadatos y enlaces de la salida generada. GitHub Actions ejecuta gates, build y verificación en cada PR/push a main.
+`bun run check` genera el contenido y agrupa formato, lint y tipos. `bun run test` prueba la frontera de publicación, la limpieza de HTML y los vídeos. `bun run verify:build` comprueba HTML, metadatos y enlaces de la salida generada. GitHub Actions ejecuta gates, build y verificación en cada PR/push a main.
 
-El estilo de los iconos sociales se dibuja con Canvas 2D en `src/lib/social-art.ts`, siguiendo la paleta y las formas de Berrus. Los PNG facilitados por el propietario conservan su formato original. El movimiento respeta `prefers-reduced-motion`.
+El estilo de los iconos sociales se dibuja con Canvas 2D en `apps/web/src/lib/social-art.ts`, siguiendo la paleta y las formas de Berrus. Los PNG facilitados por el propietario conservan su formato original. El movimiento respeta `prefers-reduced-motion`.
 
 El repositorio es público. No se concede una licencia de reutilización del código o las ilustraciones por el mero hecho de publicarlo; el propietario puede añadir la licencia que prefiera.

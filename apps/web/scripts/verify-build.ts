@@ -20,6 +20,16 @@ for (const file of htmlFiles) {
     assert.ok(html.includes('rel="canonical"'), `${file}: missing canonical`);
     assert.ok(existsSync(join(dirname(file), "index.md")), `${file}: missing Markdown`);
   }
+  const socialImage = /property="og:image" content="([^"]+)"/.exec(html)?.[1];
+  assert.ok(socialImage, `${file}: missing social image`);
+  const imageUrl = new URL(socialImage);
+  assert.equal(imageUrl.origin, site.origin, `${file}: unexpected social image origin`);
+  const imageBytes = readFileSync(join("dist", imageUrl.pathname));
+  assert.equal(imageBytes.subarray(1, 4).toString(), "PNG", `${file}: social image is not PNG`);
+  const width = Number(/property="og:image:width" content="(\d+)"/.exec(html)?.[1]);
+  const height = Number(/property="og:image:height" content="(\d+)"/.exec(html)?.[1]);
+  assert.equal(imageBytes.readUInt32BE(16), width, `${file}: social image width mismatch`);
+  assert.equal(imageBytes.readUInt32BE(20), height, `${file}: social image height mismatch`);
   for (const match of html.matchAll(/(?:src|href)="(\/[^"#?]*)/g)) {
     const url = match[1];
     if (!url || url.startsWith("//")) continue;

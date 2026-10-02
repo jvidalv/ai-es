@@ -1,0 +1,34 @@
+{
+  "name": "@ai-es/web",
+  "version": "0.0.0",
+  "private": true,
+  "type": "module",
+  "scripts": {
+    "dev": "vp dev --host 127.0.0.1",
+    "content": "bun scripts/generate-content.ts",
+    "build": "bun run content && tsc -b && bun scripts/generate-og.tsx && vp build && vp build --ssr scripts/prerender.tsx --outDir .gen-reports/prerender && bun .gen-reports/prerender/prerender.js && bun run verify:build",
+    "preview": "vp preview --host 127.0.0.1",
+    "start": "bun server.ts",
+    "typecheck": "bun run content && tsc -b",
+    "verify:build": "bun scripts/verify-build.ts"
+  },
+  "dependencies": {
+    "@ai-es/content": "workspace:*",
+    "@fontsource/dm-sans": "^5.2.0",
+    "@fontsource/space-grotesk": "^5.2.0",
+    "lucide-react": "^0.468.0",
+    "react": "^19.2.8",
+    "react-dom": "^19.2.8"
+  },
+  "devDependencies": {
+    "@resvg/resvg-js": "^2.6.2",
+    "@types/node": "^24.13.3",
+    "@types/react": "^19.2.18",
+    "@types/react-dom": "^19.2.7",
+    "@vitejs/plugin-react": "^6.1.1",
+    "satori": "^0.18.3",
+    "typescript": "~6.0.2",
+    "vite": "npm:@voidzero-dev/vite-plus-core@1.0.0",
+    "vite-plus": "1.0.0"
+  }
+}

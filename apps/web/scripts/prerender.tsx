@@ -99,12 +99,14 @@ for (const page of [
     <meta property="og:description" content="${escape(page.description)}" />
     <meta property="og:type" content="${post ? "article" : "website"}" />
     <meta property="og:url" content="${escape(url)}" />
-    <meta property="og:image" content="${site.origin}/images/ai-es-${post?.icon ?? "03"}-1024.png" />
-    <meta property="og:image:alt" content="Ilustración de ai-es" />
-    <meta name="twitter:image" content="${site.origin}/images/ai-es-${post?.icon ?? "03"}-1024.png" />
+    <meta property="og:image" content="${site.origin}${post ? `/images/ai-es-${post.icon}-1024.png` : site.socialImage}" />
+    <meta property="og:image:alt" content="${escape(post ? `Ilustración de ${post.title}` : site.headline)}" />
+    <meta property="og:image:width" content="${post ? 1024 : site.socialImageWidth}" />
+    <meta property="og:image:height" content="${post ? 1024 : site.socialImageHeight}" />
+    <meta name="twitter:image" content="${site.origin}${post ? `/images/ai-es-${post.icon}-1024.png` : site.socialImage}" />
     <meta property="og:locale" content="es_ES" />
     <meta property="og:site_name" content="ai-es" />
-    <meta name="twitter:card" content="summary" />
+    <meta name="twitter:card" content="${post ? "summary" : "summary_large_image"}" />
     <meta name="twitter:title" content="${escape(page.title)}" />
     <meta name="twitter:description" content="${escape(page.description)}" />
     <script type="application/ld+json">${JSON.stringify([structured, breadcrumb]).replace(/</g, "\\u003c")}</script>`;
@@ -137,7 +139,7 @@ for (const page of [
 }
 await writeFile(
   "dist/llms.txt",
-  `# ai-es\n\n> ${site.description}\n\nai-es es una comunidad hispanohablante de España y Latinoamérica. Compartimos pruebas, proyectos, dudas y recursos.\n\n## Páginas\n\n${markdownPages.map((page) => `- [${page.title}](${site.origin}${page.path}index.md): ${page.description}`).join("\n")}\n\n## Optional\n\n- [Contenido completo](${site.origin}/llms-full.txt): Copia en Markdown de las páginas públicas.\n- [RSS](${site.origin}/feed.xml): Publicaciones.\n- [Sitemap](${site.origin}/sitemap.xml): URLs canónicas.\n`,
+  `# ai-es\n\n> ${site.description}\n\nSomos una comunidad hispanohablante interesada en estos temas.\n\n## Páginas\n\n${markdownPages.map((page) => `- [${page.title}](${site.origin}${page.path}index.md): ${page.description}`).join("\n")}\n\n## Optional\n\n- [Contenido completo](${site.origin}/llms-full.txt): Copia en Markdown de las páginas públicas.\n- [RSS](${site.origin}/feed.xml): Publicaciones.\n- [Sitemap](${site.origin}/sitemap.xml): URLs canónicas.\n`,
 );
 await writeFile("dist/llms-full.txt", markdownPages.map((page) => page.markdown).join("\n---\n\n"));
 await writeFile(

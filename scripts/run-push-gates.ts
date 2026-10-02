@@ -11,7 +11,7 @@ const results = await Promise.all(
   gates.map(
     (name) =>
       new Promise<boolean>((resolve) => {
-        const child = spawn("npm", ["run", name], { stdio: ["ignore", "pipe", "pipe"] });
+        const child = spawn("bun", ["run", name], { stdio: ["ignore", "pipe", "pipe"] });
         let output = "";
         child.stdout.on("data", (chunk: Buffer) => {
           output += chunk.toString();

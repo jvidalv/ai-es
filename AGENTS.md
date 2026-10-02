@@ -61,9 +61,9 @@ These commands map to their corresponding tools. For example, `vp dev --port 300
 
 ## Common Pitfalls
 
-- **Package management:** Prefer Vite+ locally. Docker, CI and git hooks may bootstrap/run through npm so they do not require a global vp install.
+- **Package management:** Use Bun for installs and workspace scripts. Vite+ remains the build/lint/test toolchain and requires Node 24; no global vp install is needed.
 - **Always use Vite commands to run tools:** Don't attempt to run `vp vitest` or `vp oxlint`. They do not exist. Use `vp test` and `vp lint` instead.
-- **Running scripts:** Vite+ commands take precedence over `package.json` scripts. If there is a `test` script defined in `scripts` that conflicts with the built-in `vp test` command, run it using `vp run test`.
+- **Running scripts:** Vite+ commands take precedence over `package.json` scripts. If there is a `test` script defined in `scripts` that conflicts with the built-in `vp test` command, run it using `bun run test`.
 - **Do not install Vitest, Oxlint, Oxfmt, or tsdown directly:** Vite+ wraps these tools. They must not be installed directly. You cannot upgrade these tools by installing their latest versions. Always use Vite+ commands.
 - **Use Vite+ wrappers for one-off binaries:** Use `vp dlx` instead of package-manager-specific `dlx`/`npx` commands.
 - **Import JavaScript modules from `vite-plus`:** Instead of importing from `vite` or `vitest`, all modules should be imported from the project's `vite-plus` dependency. For example, `import { defineConfig } from 'vite-plus';` or `import { expect, test, vi } from 'vite-plus/test';`. You must not install `vitest` to import test utilities.
@@ -71,26 +71,32 @@ These commands map to their corresponding tools. For example, `vp dev --port 300
 
 ## Review Checklist for Agents
 
-- [ ] Run `vp install` after pulling remote changes and before getting started.
-- [ ] Run `vp check` and `vp test` to validate changes.
+- [ ] Run `bun install --frozen-lockfile` after pulling remote changes and before getting started.
+- [ ] Run `bun run check` and `bun run test` to validate changes.
 
 <!--VITE PLUS END-->
 
+## Workspace layout
+
+- `apps/web` owns the React app, static server and website build scripts.
+- `packages/content` owns Markdown posts, publication validation and shared content types. Import its explicit package exports; do not reach into sibling workspaces with relative paths.
+- Root scripts enforce rules across all workspaces. Keep one Bun lockfile and the Railway Docker build context at the root.
+
 ## ai-es rules
 
-- Read `docs/writing-style.md` before writing UI copy, articles, descriptions or metadata. It is an instruction for agents, not just an editorial reference. Use Spanish for Spain and Latin America, plain conversation between equals, no marketing slogans.
+- Read `docs/writing-style.md` before writing UI copy, articles, descriptions or metadata. It is an instruction for agents, not just an editorial reference. Use plain Spanish for a Spanish-speaking community of equals, no marketing slogans. Read `CLAUDE.md` for the community identity and working context.
 - All source filenames use kebab-case (`app.tsx`, `youtube-embed.tsx`). Component identifiers remain PascalCase.
 - No re-exports. Static imports are a single block at the top. Relative imports in Vite's config dependency graph include `.ts`/`.tsx`.
 - Strict TypeScript: no `any`, casts, non-null assertions or type/lint suppression. Validate untrusted Markdown metadata at the boundary. This static site uses Zod, not Berrus's Elysia-specific TypeBox stack.
 - Functions with more than two parameters take a typed options object.
 - Keep comments to one or two lines, only for non-obvious reasons or invariants. Tests must catch a named regression rather than pinning authored text or counts.
-- Reuse the `src/lib/social-art.ts` Canvas painter registry for social icons. Match the supplied illustrations' flat palette and thick outlines. Respect reduced motion for animation.
-- Content lives in `content/posts`; every published page must be pre-rendered. Drafts and future posts must never enter HTML, RSS, sitemap, Markdown exports or LLM feeds. A future post needs a new build on or after its date.
-- Keep public URLs and community links in `src/lib/site.ts`. Do not invent activity, member counts, endorsements, news or affiliations.
+- Reuse the `apps/web/src/lib/social-art.ts` Canvas painter registry for social icons. Match the supplied illustrations' flat palette and thick outlines. Respect reduced motion for animation.
+- Content lives in `packages/content/posts`; every published page must be pre-rendered. Drafts and future posts must never enter HTML, RSS, sitemap, Markdown exports or LLM feeds. A future post needs a new build on or after its date.
+- Keep public URLs and community links in `apps/web/src/lib/site.ts`. Do not invent activity, member counts, endorsements, news or affiliations.
 - Preserve native text selection, image controls and browser menus. This is a reading site, not Berrus's game surface.
 - Keep technical publishing and deployment instructions in README. Keep editorial voice in `docs/writing-style.md`; update them alongside behavior changes.
 - Never run `git stash`, `git stash pop`, `git stash drop`, `git checkout -- .`, `git restore .`, `git reset --hard` or `git clean -fd`. Never force push without explicit per-push approval. Never apply database migrations autonomously. Do not bulk autofix unrelated files.
 - Use LSP/TypeScript language-service references for navigation and before signature changes. Check diagnostics after code changes.
-- Pre-commit and pre-push hooks check only; never autofix or stage files. Fix and stage explicitly. `vp run hooks:install` installs local hooks.
+- Pre-commit and pre-push hooks check only; never autofix or stage files. Fix and stage explicitly. `bun run hooks:install` installs local hooks.
 - Before completing non-trivial work invoke `/simplify`, then `/post-work-review` using the actual Skill tool, and fix findings. Do not substitute a self-review. If the environment cannot invoke a skill, report that limitation.
-- Run `vp run check:push-gates`, `vp run build`, and browser checks for changed interactions. Railway deploys main via its GitHub source connection. Verify explicitly requested deployments; do not modify unrelated services.
+- Run `bun run check:push-gates`, `bun run build`, and browser checks for changed interactions. Railway deploys main via its GitHub source connection. Verify explicitly requested deployments; do not modify unrelated services.

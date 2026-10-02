@@ -1,15 +1,19 @@
+FROM oven/bun:1.4.2 AS bun
 FROM node:24-bookworm-slim AS build
+COPY --from=bun /usr/local/bin/bun /usr/local/bin/bun
 WORKDIR /app
-COPY package.json package-lock.json ./
-RUN npm ci
+COPY package.json bun.lock ./
+COPY apps/web/package.json ./apps/web/package.json
+COPY packages/content/package.json ./packages/content/package.json
+RUN bun install --frozen-lockfile
 COPY . .
-RUN npm run build
+RUN bun run build
 
-FROM node:24-bookworm-slim AS production
+FROM oven/bun:1.4.2-slim AS production
 WORKDIR /app
 ENV NODE_ENV=production
-COPY --from=build --chown=node:node /app/dist ./dist
-COPY --chown=node:node server.ts ./server.ts
-USER node
+COPY --from=build --chown=bun:bun /app/apps/web/dist ./dist
+COPY --chown=bun:bun apps/web/server.ts ./server.ts
+USER bun
 EXPOSE 3000
-CMD ["node", "server.ts"]
+CMD ["bun", "server.ts"]

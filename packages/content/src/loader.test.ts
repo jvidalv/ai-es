@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vite-plus/test";
-import { parsePost } from "./content.ts";
-import { youtubeId } from "../src/lib/youtube.ts";
+import { parsePost } from "./loader.ts";
+import { youtubeId } from "./youtube.ts";
 
 const source = (extra = "", body = "Un artículo de prueba.") =>
   `---\ntitle: Prueba\ndescription: Una descripción\ndate: "2026-01-01"\nkind: articulo\ntopic: ia\nicon: "03"\n${extra}---\n${body}`;

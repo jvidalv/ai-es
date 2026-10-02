@@ -23,7 +23,8 @@ dist-ssr
 *.sln
 *.sw?
 
-src/generated/
+apps/web/src/generated/
+apps/web/public/images/og-development.png
 .gen-reports/
 test-results/
 playwright-report/

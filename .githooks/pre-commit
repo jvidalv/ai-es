@@ -1,5 +1,5 @@
 #!/bin/sh
 set -e
-npm run check:staged
-npm run check:rules
-npm run check:vite-config
+bun run check:staged
+bun run check:rules
+bun run check:vite-config

@@ -1,10 +1,12 @@
-import { readdir, readFile, mkdir, writeFile } from "node:fs/promises";
+import { readdir, readFile } from "node:fs/promises";
+import { join } from "node:path";
+import { fileURLToPath } from "node:url";
 import matter from "gray-matter";
 import { marked, type Token } from "marked";
 import sanitizeHtml from "sanitize-html";
-import { postMetadata } from "../src/lib/content-schema.ts";
-import { youtubeId } from "../src/lib/youtube.ts";
-import type { ContentBlock } from "../src/lib/types.ts";
+import { postMetadata } from "./content-schema.ts";
+import { youtubeId } from "./youtube.ts";
+import type { ContentBlock } from "./types.ts";
 
 export async function parsePost({
   source,
@@ -86,13 +88,15 @@ export async function parsePost({
   };
 }
 
-export async function generateContent() {
-  const files = (await readdir("content/posts")).filter((file) => file.endsWith(".md")).sort();
+export const postsDirectory = fileURLToPath(new URL("../posts/", import.meta.url));
+
+export async function readPosts() {
+  const files = (await readdir(postsDirectory)).filter((file) => file.endsWith(".md")).sort();
   const entries = await Promise.all(
     files.map(async (file) => {
       try {
         return await parsePost({
-          source: await readFile(`content/posts/${file}`, "utf8"),
+          source: await readFile(join(postsDirectory, file), "utf8"),
           slug: file.slice(0, -3),
         });
       } catch (error) {
@@ -100,12 +104,7 @@ export async function generateContent() {
       }
     }),
   );
-  const posts = entries
+  return entries
     .filter((post) => post !== null)
     .sort((a, b) => b.date.localeCompare(a.date) || a.slug.localeCompare(b.slug));
-  await mkdir("src/generated", { recursive: true });
-  await writeFile(
-    "src/generated/content.ts",
-    `// Generated from content/posts. Do not edit.\nimport type { Post } from '../lib/types';\nexport const posts: Post[] = ${JSON.stringify(posts, null, 2)};\n`,
-  );
 }

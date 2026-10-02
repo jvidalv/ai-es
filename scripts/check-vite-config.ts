@@ -34,7 +34,10 @@ export async function assertViteConfigCompatible({
 if (import.meta.main) {
   try {
     const commands: ConfigEnv["command"][] = ["serve", "build"];
-    for (const command of commands) await assertViteConfigCompatible({ command });
+    for (const configFile of ["vite.config.ts", "apps/web/vite.config.ts"]) {
+      for (const command of commands)
+        await assertViteConfigCompatible({ command, configFile: resolve(configFile) });
+    }
     console.log("check:vite-config ✓ — dev and build configs load without warnings.");
   } catch (error) {
     console.error("check:vite-config ✗ — fix the config or its imported dependencies:");

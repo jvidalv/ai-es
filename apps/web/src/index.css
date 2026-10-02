@@ -427,14 +427,7 @@ button:focus-visible {
   font-size: 25px;
   color: #93703a;
 }
-.art-code {
-  position: absolute;
-  bottom: 18px;
-  right: 18px;
-  font-size: 9px;
-  font-family: monospace;
-  letter-spacing: 0.3px;
-}
+
 .card-body {
   padding: 22px;
   display: flex;
@@ -532,7 +525,7 @@ button:focus-visible {
   border: 1px solid var(--line);
   border-radius: 15px;
   display: grid;
-  grid-template-columns: 36% 64%;
+  grid-template-columns: minmax(0, 36fr) minmax(0, 64fr);
   padding: 48px 65px;
   gap: 25px;
   align-items: center;
@@ -979,7 +972,7 @@ button:focus-visible {
     flex-wrap: wrap;
   }
   .hero {
-    grid-template-columns: 1fr;
+    grid-template-columns: minmax(0, 1fr);
     padding-block: 45px 36px;
     gap: 22px;
   }
@@ -1003,6 +996,7 @@ button:focus-visible {
     font-size: 12px;
   }
   .hero-art {
+    overflow: clip;
     height: 315px;
     transform: none;
     margin: 0 auto;

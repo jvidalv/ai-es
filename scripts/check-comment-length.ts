@@ -1,8 +1,8 @@
 import { readFileSync } from "node:fs";
-import { repoGlob } from "./check-shared.ts";
+import { repoFiles } from "./check-shared.ts";
 
 const MAX_LINES = 2;
-const files = repoGlob("{src,scripts}/**/*.{ts,tsx}");
+const files = repoFiles().filter((file) => /\.(ts|tsx)$/.test(file));
 const violations: { file: string; line: number; lines: number }[] = [];
 
 for (const file of files) {

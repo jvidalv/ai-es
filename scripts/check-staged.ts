@@ -3,9 +3,7 @@ const files = execFileSync("git", ["diff", "--cached", "--name-only", "--diff-fi
   encoding: "utf8",
 })
   .split("\0")
-  .filter(
-    (file) => file !== "package-lock.json" && /\.(ts|tsx|css|json|md|html|ya?ml)$/.test(file),
-  );
+  .filter((file) => /\.(ts|tsx|css|json|md|html|ya?ml)$/.test(file));
 for (const file of files) {
   const staged = execFileSync("git", ["show", `:${file}`], { encoding: "utf8" });
   const formatted = spawnSync("./node_modules/.bin/vp", ["fmt", "--stdin-filepath", file], {

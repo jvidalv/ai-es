@@ -5,7 +5,7 @@ import { repoFiles } from "./check-shared.ts";
 
 const findings: string[] = [];
 for (const file of repoFiles().filter(
-  (file) => /\.(ts|tsx)$/.test(file) && !file.startsWith("src/generated/"),
+  (file) => /\.(ts|tsx)$/.test(file) && !file.startsWith("apps/web/src/generated/"),
 )) {
   if (!/^[a-z0-9]+(?:[.-][a-z0-9]+)*\.(?:ts|tsx)$/.test(basename(file)))
     findings.push(`${file}: use kebab-case filenames`);

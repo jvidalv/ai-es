@@ -4,7 +4,7 @@ import { SocialIcon } from "./components/social-icon";
 import { YoutubeEmbed } from "./components/youtube-embed";
 import { posts } from "./generated/content";
 import { site, topics, postPath, dateLabel, routes, topicPath, isTopic } from "./lib/site";
-import type { Post, Topic } from "./lib/types";
+import type { Post, Topic } from "@ai-es/content/types";
 
 function Illustration({ icon, className = "" }: { icon: Post["icon"]; className?: string }) {
   return (
@@ -131,8 +131,7 @@ function Footer() {
         </div>
       </div>
       <div className="footer-bottom">
-        <span>© 2026 ai-es · España y Latinoamérica.</span>
-        <span>IA · SOFTWARE · VIDEOJUEGOS</span>
+        <span>© 2026 ai-es.</span>
       </div>
     </footer>
   );
@@ -147,24 +146,11 @@ function PostCard({ post, featured = false }: { post: Post; featured?: boolean }
         <div className="art-orbit" />
         <span className="art-star">✦</span>
         <Illustration icon={post.icon} />
-        <span className="art-code">
-          {post.topic === "desarrollo"
-            ? "{ hello, world }"
-            : post.topic === "ia"
-              ? "hola, comunidad_"
-              : "press start_"}
-        </span>
       </div>
       <div className="card-body">
         <div className="card-meta">
           <span className={`tag tag-${post.topic}`}>
-            {post.kind === "noticia"
-              ? "COMUNIDAD"
-              : post.topic === "ia"
-                ? "INTELIGENCIA ARTIFICIAL"
-                : post.topic === "desarrollo"
-                  ? "DESARROLLO"
-                  : "GAME DEV"}
+            {post.kind === "noticia" ? "Comunidad" : topics[post.topic].name}
           </span>
           <span>{`${post.minutes} min de lectura`}</span>
         </div>
@@ -186,14 +172,13 @@ function Home() {
       <section className="hero container">
         <div className="hero-copy">
           <h1>
-            Código, juegos
-            <br />y cosas que
+            IA y desarrollo
             <br />
-            <span className="hand-underline">vamos probando.</span>
+            de software
+            <br />y <span className="hand-underline">videojuegos.</span>
           </h1>
           <p>
-            Somos gente de España y Latinoamérica que usa IA para programar y hacer juegos.
-            Compartimos proyectos, dudas y lo que vamos aprendiendo.
+            {site.tagline} {site.invitation}
           </p>
           <div className="button-row">
             <a className="button" href={site.discord} target="_blank" rel="noreferrer">
@@ -266,9 +251,7 @@ function Listing({ topic }: { topic?: Topic }) {
   const [filter, setFilter] = React.useState("todos");
   const topicInfo = topic ? topics[topic] : undefined;
   const title = topicInfo?.name ?? "Lo que vamos aprendiendo.";
-  const description =
-    topicInfo?.description ??
-    "Apuntes sobre IA, código y juegos. Guías para empezar, pruebas y alguna novedad.";
+  const description = topicInfo?.description ?? routes.blog.description;
   const matching = posts.filter(
     (post) => (!topic || post.topic === topic) && (filter === "todos" || post.topic === filter),
   );
@@ -278,7 +261,6 @@ function Listing({ topic }: { topic?: Topic }) {
         <a className="breadcrumb" href="/">
           Inicio <ChevronRight size={14} />
         </a>
-        <span className="eyebrow">{topicInfo ? "CADA CUAL CON LO SUYO" : "EL BLOG DE AI-ES"}</span>
         <h1>{title}</h1>
         <p>{description}</p>
       </section>
@@ -287,9 +269,9 @@ function Listing({ topic }: { topic?: Topic }) {
           <div className="filters" role="group" aria-label="Filtrar por tema">
             {[
               ["todos", "Todo"],
-              ["ia", "Inteligencia artificial"],
-              ["desarrollo", "Desarrollo"],
-              ["videojuegos", "Videojuegos"],
+              ["ia", topics.ia.name],
+              ["desarrollo", topics.desarrollo.name],
+              ["videojuegos", topics.videojuegos.name],
             ].map(([value, label]) => (
               <button
                 key={value}
@@ -390,33 +372,21 @@ function Community() {
   return (
     <>
       <section className="page-intro container community-intro">
-        <span className="eyebrow">GENTE DE ESPAÑA Y LATINOAMÉRICA</span>
-        <h1>
-          Por aquí también
-          <br />
-          andamos probando cosas.
-        </h1>
-        <p>
-          Nos juntamos para hablar de IA, programar y hacer juegos. Hay gente que empieza y gente
-          con experiencia. Nadie tiene que venir con todas las respuestas.
-        </p>
+        <h1>Una comunidad hispanohablante.</h1>
+        <p>{site.description}</p>
         <Illustration icon="04" />
       </section>
       <div className="community-destinations container">
         <a href={site.discord} className="destination">
           <SocialIcon kind="discord" />
-          <span className="eyebrow">PARA HABLAR</span>
           <h2>Nos vemos en Discord.</h2>
-          <p>
-            Pregunta, comparte tus avances y conoce a otras personas que también están construyendo.
-          </p>
+          <p>Para preguntar, compartir avances y charlar.</p>
           <span className="text-link">
-            Entrar a Discord <ArrowUpRight size={19} />
+            Pasar por Discord <ArrowUpRight size={19} />
           </span>
         </a>
         <a href={site.reddit} className="destination">
           <SocialIcon kind="reddit" />
-          <span className="eyebrow">PARA COMPARTIR</span>
           <h2>También estamos en Reddit.</h2>
           <p>
             Publica tu proyecto, comparte un recurso o abre una conversación a la que podamos
@@ -428,8 +398,7 @@ function Community() {
         </a>
       </div>
       <section className="community-values container">
-        <span className="eyebrow">UN PAR DE COSAS</span>
-        <h2>Aquí estamos para ayudarnos.</h2>
+        <h2>Un par de cosas.</h2>
         <div className="values-grid">
           <div>
             <span>01</span>

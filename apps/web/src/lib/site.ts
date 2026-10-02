@@ -1,10 +1,16 @@
-import type { Post, Topic } from "./types.ts";
+import type { Post, Topic } from "@ai-es/content/types";
 
 export const site = {
   name: "ai-es",
+  headline: "IA y desarrollo de software y videojuegos.",
+  tagline: "Somos una comunidad hispanohablante.",
+  invitation: "Un lugar para compartir dudas, recursos y proyectos.",
+  socialImageWidth: 1200,
+  socialImageHeight: 630,
+  socialImage: "/images/og-development.png",
   origin: "https://ai-es.dev",
   description:
-    "Comunidad en español para hablar de IA, software y videojuegos. Gente de España y Latinoamérica compartiendo proyectos, pruebas y dudas.",
+    "Comunidad hispanohablante interesada en la IA y el desarrollo de software y videojuegos. Un lugar para compartir dudas, recursos y proyectos.",
   discord: "https://discord.gg/U9F4b9avV5",
   reddit: "https://www.reddit.com/r/ai_es/",
   github: "https://github.com/jvidalv/ai-es",
@@ -32,7 +38,7 @@ export function postPath(post: Pick<Post, "slug">) {
   return `/blog/${post.slug}/`;
 }
 
-const dateFormatter = new Intl.DateTimeFormat("es-ES", {
+const dateFormatter = new Intl.DateTimeFormat("es", {
   day: "numeric",
   month: "short",
   year: "numeric",
@@ -46,22 +52,21 @@ export const routes = {
   home: {
     path: "/",
     label: "Inicio",
-    title: "ai-es · IA, software y videojuegos en español",
+    title: "ai-es · Comunidad de IA y desarrollo de software y videojuegos",
     description: site.description,
   },
   blog: {
     path: "/blog/",
     label: "Blog",
     title: "Blog de IA y desarrollo en español · ai-es",
-    description:
-      "Apuntes, guías y novedades de IA, software y videojuegos. Lo que vamos probando, compartido en español.",
+    description: "Apuntes y guías sobre IA, desarrollo de software y desarrollo de videojuegos.",
   },
   community: {
     path: "/comunidad/",
     label: "Comunidad",
-    title: "Comunidad de IA y desarrollo de España y Latinoamérica · ai-es",
+    title: "Comunidad hispanohablante de IA y desarrollo · ai-es",
     description:
-      "Gente de España y Latinoamérica hablando de IA, código y videojuegos. Nos encontramos en Discord y Reddit.",
+      "Una comunidad hispanohablante interesada en la IA y el desarrollo de software y videojuegos. Nos encontramos en Discord y Reddit.",
   },
 };
 export function topicPath(topic: string) {

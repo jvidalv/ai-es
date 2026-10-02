@@ -1,5 +1,5 @@
 import { execFileSync } from "node:child_process";
-import { existsSync, globSync } from "node:fs";
+import { existsSync } from "node:fs";
 import { relative } from "node:path";
 
 export function repoRelative(file: string): string {
@@ -13,9 +13,6 @@ export function repoFiles(): string[] {
       }).split("\0"),
     ),
   ].filter((file) => file && existsSync(file));
-}
-export function repoGlob(pattern: string): string[] {
-  return globSync(pattern).map(repoRelative);
 }
 export function changedFiles({ match = /\.(ts|tsx)$/ }: { match?: RegExp } = {}): string[] {
   const files = new Set<string>();

@@ -1,9 +1,11 @@
-node_modules
-dist
+**/node_modules
+**/dist
 .git
-.gen-reports
+**/.gen-reports
 .claude
 .agents
-.env*
-test-results
-playwright-report
+**/.env*
+**/test-results
+**/playwright-report
+apps/web/src/generated
+apps/web/public/images/og-development.png
