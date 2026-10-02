@@ -172,10 +172,11 @@ function Home() {
       <section className="hero container">
         <div className="hero-copy">
           <h1>
-            IA y desarrollo
+            Desarrollo de
             <br />
-            de software
-            <br />y <span className="hand-underline">videojuegos.</span>
+            software y videojuegos
+            <br />
+            <span className="hand-underline">con IA.</span>
           </h1>
           <p>
             {site.tagline} {site.invitation}

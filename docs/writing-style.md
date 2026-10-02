@@ -1,8 +1,8 @@
 # Cómo escribimos en ai-es
 
-Somos una comunidad hispanohablante de iguales, interesada en la IA y el desarrollo de software y videojuegos. Hablamos como hablaríamos en un chat con otra persona que está probando cosas. La web no vende un producto ni promete convertir a nadie en un experto.
+Somos una comunidad hispanohablante de iguales, interesada en el desarrollo de software y videojuegos con IA. Hablamos como hablaríamos en un chat con otra persona que está probando cosas. La web no vende un producto ni promete convertir a nadie en un experto.
 
-- Somos una comunidad interesada en la IA y el desarrollo de software y videojuegos. No somos un estudio ni afirmamos desarrollar productos en conjunto. Nombrar el desarrollo explícitamente; evitar «código y juegos» como presentación, porque suena a una comunidad para jugar.
+- Somos una comunidad interesada en el desarrollo de software y videojuegos con IA. No somos un estudio ni afirmamos desarrollar productos en conjunto. Nombrar el desarrollo explícitamente; evitar «código y juegos» como presentación, porque suena a una comunidad para jugar.
 - Español sencillo, cercano y comprensible para cualquier persona hispanohablante. Evitar localismos que dejen fuera a parte de la comunidad.
 - Frases cortas y cosas concretas: qué estamos probando, qué aprendimos, qué no funciona. La duda y los proyectos a medio hacer tienen sitio.
 - Preferir «compartimos», «estamos probando» y «cuéntanos» a «te ayudamos a transformar», «desbloquea tu potencial» o «lleva tus ideas al siguiente nivel».
@@ -19,10 +19,10 @@ Somos una comunidad hispanohablante de iguales, interesada en la IA y el desarro
 
 | Evitar                                                   | Preferir                                                  |
 | -------------------------------------------------------- | --------------------------------------------------------- |
-| Las ideas son tuyas. El siguiente paso, lo damos juntos. | IA y desarrollo de software y videojuegos.                |
+| Las ideas son tuyas. El siguiente paso, lo damos juntos. | Desarrollo de software y videojuegos con IA.              |
 | Tu próxima aventura empieza aquí.                        | ¿Charlamos?                                               |
 | Encuentra tu comunidad.                                  | Pasar por Discord.                                        |
-| Ideas humanas. Posibilidades infinitas.                  | IA y desarrollo de software y videojuegos.                |
+| Ideas humanas. Posibilidades infinitas.                  | Desarrollo de software y videojuegos con IA.              |
 | Domina la IA y transforma tu futuro.                     | Esto es lo que nos ha servido al probar esta herramienta. |
 
 Antes de publicar, leer el texto en voz alta: si suena a una presentación comercial, bajarlo a una conversación normal.

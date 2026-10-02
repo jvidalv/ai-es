@@ -4,11 +4,13 @@ Leer también [AGENTS.md](AGENTS.md) para las reglas técnicas y [docs/writing-s
 
 ## Qué somos
 
-Somos una comunidad hispanohablante interesada en la inteligencia artificial, el desarrollo de software y el desarrollo de videojuegos. Nos une la curiosidad por estos temas. Puede participar alguien que empieza, alguien con experiencia o alguien que solo quiere leer.
+Somos una comunidad hispanohablante interesada en el desarrollo de software y videojuegos con IA. Nos une la curiosidad por estos temas. Puede participar alguien que empieza, alguien con experiencia o alguien que solo quiere leer.
 
 No somos un estudio, una empresa de servicios ni un equipo que desarrolle productos en conjunto. No escribir «desarrollamos software y videojuegos» como si fuera nuestra actividad colectiva. No prometer formación, ayuda, resultados ni actividad que no se haya confirmado.
 
 Hablar de «comunidad hispanohablante», sin delimitarla a España y Latinoamérica. Decir «desarrollo de videojuegos» cuando se presenta ese interés: «código y juegos» suena a una comunidad para jugar.
+
+La presentación preferida es «Desarrollo de software y videojuegos con IA». Debajo: «Somos una comunidad hispanohablante». Son intereses de la comunidad, no una afirmación de que produzcamos software en conjunto.
 
 ## Cómo comunicamos
 

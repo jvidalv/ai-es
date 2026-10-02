@@ -1,6 +1,6 @@
 ---
 title: "Hola, somos ai-es. Estamos empezando."
-description: "Abrimos un sitio para hablar de IA y desarrollo de software y videojuegos. Para compartir pruebas, dudas y proyectos a medio hacer."
+description: "Abrimos un sitio para hablar de desarrollo de software y videojuegos con IA. Para compartir pruebas, dudas y proyectos a medio hacer."
 date: "2026-10-01"
 kind: noticia
 topic: ia
@@ -8,11 +8,11 @@ icon: "03"
 featured: true
 ---
 
-Hemos abierto ai-es para tener un sitio donde hablar de IA y desarrollo de software y videojuegos. Compartir una prueba, preguntar por un error o enseñar algo a medio hacer. **No hace falta traer un gran proyecto.**
+Hemos abierto ai-es para tener un sitio donde hablar de desarrollo de software y videojuegos con IA. Compartir una prueba, preguntar por un error o enseñar algo a medio hacer. **No hace falta traer un gran proyecto.**
 
-Queremos reunir a personas de habla hispana con interés en la IA y el desarrollo de software y videojuegos. Puedes estar empezando o llevar años con esto.
+Queremos reunir a personas de habla hispana con interés en el desarrollo de software y videojuegos con IA. Puedes estar empezando o llevar años con esto.
 
-<img src="/images/ai-es-banner-mobile-2160x512.png" alt="ai-es: IA y desarrollo de software y videojuegos" width="2160" height="512" />
+<img src="/images/ai-es-banner-mobile-2160x512.png" alt="ai-es: Desarrollo de software y videojuegos con IA" width="2160" height="512" />
 
 ## Qué podemos compartir
 

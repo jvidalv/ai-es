@@ -1,9 +1,9 @@
 <p align="center">
-  <img src="apps/web/public/images/ai-es-banner-desktop-3200x384.png" alt="ai-es · IA y desarrollo de software y videojuegos" width="100%" />
+  <img src="apps/web/public/images/ai-es-banner-desktop-3200x384.png" alt="ai-es · Desarrollo de software y videojuegos con IA" width="100%" />
 </p>
 
 <h1 align="center">ai-es</h1>
-<p align="center"><strong>IA y desarrollo de software y videojuegos.</strong></p>
+<p align="center"><strong>Desarrollo de software y videojuegos con IA.</strong></p>
 <p align="center">
   <a href="https://ai-es.dev">La web</a> ·
   <a href="https://discord.gg/U9F4b9avV5">Discord</a> ·
@@ -11,10 +11,10 @@
   <a href="https://ai-es.dev/feed.xml">RSS</a>
 </p>
 <p align="center">
-  <a href="https://github.com/jvidalv/ai-es/actions/workflows/ci.yml"><img src="https://github.com/jvidalv/ai-es/actions/workflows/ci.yml/badge.svg" alt="Quality gates" /></a>
+  <a href="https://github.com/jvidalv/ai-es.dev/actions/workflows/ci.yml"><img src="https://github.com/jvidalv/ai-es.dev/actions/workflows/ci.yml/badge.svg" alt="Quality gates" /></a>
 </p>
 
-Comunidad en español interesada en la IA y el desarrollo de software y videojuegos. Para compartir pruebas, dudas y recursos.
+Comunidad en español interesada en el desarrollo de software y videojuegos con IA. Para compartir pruebas, dudas y recursos.
 
 - Web: https://ai-es.dev
 - Discord: https://discord.gg/U9F4b9avV5
@@ -123,7 +123,7 @@ Railway construye el Dockerfile y ejecuta `bun server.ts`. La imagen final solo 
 
 Mantener el directorio raíz de Railway en la raíz del repositorio: el Dockerfile necesita ambos workspaces y el lockfile. No establecer `apps/web` como raíz del servicio.
 
-El proyecto Railway `ai-es.dev` tiene el servicio `web` conectado al repositorio `jvidalv/ai-es`, rama `main`. Cada push a `main`, incluidos los cambios de artículos desde GitHub, inicia un despliegue automáticamente. Las pull requests ejecutan las comprobaciones de GitHub Actions.
+El proyecto Railway `ai-es.dev` tiene el servicio `web` conectado al repositorio `jvidalv/ai-es.dev`, rama `main`. Cada push a `main`, incluidos los cambios de artículos desde GitHub, inicia un despliegue automáticamente. Las pull requests ejecutan las comprobaciones de GitHub Actions.
 
 Dominio: `ai-es.dev`. En Cloudflare, crear un CNAME `@` hacia el destino que muestra Railway; inicialmente usar DNS only para validar el certificado. No borrar registros de correo ni otros subdominios. El servicio usa `PORT=3000` y el dominio está asociado a ese mismo puerto.
 

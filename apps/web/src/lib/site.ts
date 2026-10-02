@@ -2,7 +2,7 @@ import type { Post, Topic } from "@ai-es/content/types";
 
 export const site = {
   name: "ai-es",
-  headline: "IA y desarrollo de software y videojuegos.",
+  headline: "Desarrollo de software y videojuegos con IA.",
   tagline: "Somos una comunidad hispanohablante.",
   invitation: "Un lugar para compartir dudas, recursos y proyectos.",
   socialImageWidth: 1200,
@@ -10,10 +10,10 @@ export const site = {
   socialImage: "/images/og-development.png",
   origin: "https://ai-es.dev",
   description:
-    "Comunidad hispanohablante interesada en la IA y el desarrollo de software y videojuegos. Un lugar para compartir dudas, recursos y proyectos.",
+    "Comunidad hispanohablante interesada en el desarrollo de software y videojuegos con IA. Un lugar para compartir dudas, recursos y proyectos.",
   discord: "https://discord.gg/U9F4b9avV5",
   reddit: "https://www.reddit.com/r/ai_es/",
-  github: "https://github.com/jvidalv/ai-es",
+  github: "https://github.com/jvidalv/ai-es.dev",
 };
 
 export const topics: Record<Topic, { name: string; description: string; icon: Post["icon"] }> = {
@@ -52,21 +52,21 @@ export const routes = {
   home: {
     path: "/",
     label: "Inicio",
-    title: "ai-es · Comunidad de IA y desarrollo de software y videojuegos",
+    title: "ai-es · Comunidad de desarrollo de software y videojuegos con IA",
     description: site.description,
   },
   blog: {
     path: "/blog/",
     label: "Blog",
     title: "Blog de IA y desarrollo en español · ai-es",
-    description: "Apuntes y guías sobre IA, desarrollo de software y desarrollo de videojuegos.",
+    description: "Apuntes y guías sobre desarrollo de software y videojuegos con IA.",
   },
   community: {
     path: "/comunidad/",
     label: "Comunidad",
     title: "Comunidad hispanohablante de IA y desarrollo · ai-es",
     description:
-      "Una comunidad hispanohablante interesada en la IA y el desarrollo de software y videojuegos. Nos encontramos en Discord y Reddit.",
+      "Una comunidad hispanohablante interesada en el desarrollo de software y videojuegos con IA. Nos encontramos en Discord y Reddit.",
   },
 };
 export function topicPath(topic: string) {
